@@ -10,6 +10,14 @@
 - sudo apt-get update
 - sudo apt-get install cuda
 
+* Checking the version
+$ nvcc --version
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2016 NVIDIA Corporation
+Built on Sun_Sep__4_22:14:01_CDT_2016
+Cuda compilation tools, release 8.0, V8.0.44
+
+* Setting up the environment variables
 - in ~/.bashrc
 - export PATH=/usr/local/cuda-8.0/bin:$PATH
 - export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH
