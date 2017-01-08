@@ -11,8 +11,9 @@
 - sudo apt-get install cuda
 
 * Checking the version
-> $ nvcc --version
-nvcc: NVIDIA (R) Cuda compiler driver
+>$ nvcc --version
+>
+>nvcc: NVIDIA (R) Cuda compiler driver
 Copyright (c) 2005-2016 NVIDIA Corporation
 Built on Sun_Sep__4_22:14:01_CDT_2016
 Cuda compilation tools, release 8.0, V8.0.44
