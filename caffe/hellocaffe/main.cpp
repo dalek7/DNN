@@ -10,7 +10,7 @@ using namespace caffe;
 using namespace std;
 typedef double Dtype;
 
-int main(int argc, char** argv) { 
+int main(int argc, char** argv) {
     Blob<Dtype>* const blob = new Blob<Dtype>(20, 30, 40, 50);
     if(blob){
         cout<<"Size of blob:";
@@ -34,10 +34,19 @@ int main(int argc, char** argv) {
     const Dtype* data = blob->cpu_data();
     for (int i = 0; i < blob->count(); ++i) {
         expected_asum += fabs(data[i]);
-    }    
+    }
     cout<<"expected asum of blob: "<<expected_asum<<endl;
     cout<<"asum of blob on cpu: "<<blob->asum_data()<<endl;
 
     delete blob;
     return 0;
 }
+
+/* run example :
+
+$ ./hellocaffe
+Size of blob: N=20 K=30 H=40 W=50 C=1200000
+expected asum of blob: 1.79938e+06
+asum of blob on cpu: 1.79938e+06
+
+*/
