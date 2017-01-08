@@ -1,3 +1,5 @@
+// codes downloaded from http://deeplearningstudy.github.io/doc_caffe_example_1hellocaffe.html
+
 #include <stdio.h>
 
 #include "caffe/caffe.hpp"
