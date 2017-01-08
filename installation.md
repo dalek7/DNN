@@ -1,10 +1,14 @@
+# jupyter notebook
 ## Installation
-- sudo pip install --upgrade pip
-- sudo pip install ipython
-- sudo pip install jupyter
-
+```bash
+sudo pip install --upgrade pip
+sudo pip install ipython
+sudo pip install jupyter
+```
 ## Run
-- jupyter notebook
+```bash
+jupyter notebook
+```
 
 ## Troubleshoot
 > 어제 안되었던 부분은 numpy가 아마 버전이 낮아서 그랬던것 같음
