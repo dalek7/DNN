@@ -20,6 +20,7 @@ int main(int argc, char** argv) {
     // bottom/top blobs
     Blob<Dtype>* blob_top = new Blob<Dtype>();
     Blob<Dtype>* blob_bottom = new Blob<Dtype>(10, 20, 1, 1);
+
     FillerParameter filler_param;
     GaussianFiller<Dtype> filler(filler_param);
     filler.Fill(blob_bottom);
@@ -41,9 +42,11 @@ int main(int argc, char** argv) {
     cout<<"blob_bottom_num:"<<blob_bottom->num()<<endl;
     cout<<"blob_top_channels:"<<blob_top->channels()<<endl;
 
+    cout<<"blob_bottom_count:"<<blob_top->count()<<endl;
+    cout<<"blob_bottom_count:"<<blob_top->count()<<endl;
     //forward
     layer.Forward(blob_bottom_vec, blob_top_vec);
-
+    cout<<"blob_bottom_count:"<<blob_top->count()<<endl<<endl;
     // Now, check values
     const Dtype* bottom_data = blob_bottom->cpu_data();
     const Dtype* top_data = blob_top->cpu_data();
@@ -52,15 +55,17 @@ int main(int argc, char** argv) {
     Dtype max_val;
     int num = blob_bottom->num();
     int dim = blob_bottom->count() / num;
-    for (int i = 0; i < num; ++i) {
+    for (int i = 0; i < num; ++i)
+    {
         max_ind = top_data[blob_top->offset(i,0,0,0)];
         max_val = top_data[blob_top->offset(i,1,0,0)];
         cout<<"max_ind:"<<max_ind<<endl;
         cout<<"max_val:"<<max_val<<endl;
-        for (int j = 0; j < dim; ++j) {
+        for (int j = 0; j < dim; ++j)
+        {
             cout<<bottom_data[i * dim + j]<<" ";
         }
-        cout<<endl;
+        cout<<endl<<endl;
     }
     return 0;
 }
