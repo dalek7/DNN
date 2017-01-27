@@ -22,6 +22,7 @@ int nIter = 30000;
 int nClass = 10; //The number of classes in MNIST dataset
 
 #define DBG_FILE 1
+#define DBG_DISPLAY 1
 
 int main()
 {
@@ -48,6 +49,7 @@ int main()
 
     DataLayer<Dtype> layer_data(layer_data_param);
     layer_data.SetUp(blob_bottom_data_vec, blob_top_data_vec);
+
 
     //set inner product layer
     vector<Blob<Dtype>*> blob_bottom_ip_vec;
@@ -79,8 +81,13 @@ int main()
     layer_loss.SetUp(blob_bottom_loss_vec, blob_top_loss_vec);
 
 
+#if DBG_FILE
+    FILE *fp = fopen("../outbig/out.txt","w");
+#endif
     // forward and backward iteration
-    for(int n=0;n<nIter;n++){
+    //for(int n=0;n<nIter;n++)
+    for(int n=0;n<10;n++)
+    {
         // forward
         layer_data.Forward(blob_bottom_data_vec, blob_top_data_vec);
         layer_ip.Forward(blob_bottom_ip_vec, blob_top_ip_vec);
@@ -99,9 +106,39 @@ int main()
         vector<shared_ptr<Blob<Dtype> > > param = layer_ip.blobs();
         caffe_scal(param[0]->count(), rate, param[0]->mutable_cpu_diff());
         param[0]->Update();
+
+#if DBG_FILE
+        for(int j=0; j<param[0]->channels(); j++)
+        {
+            fprintf(fp, "%f ",param[0]->data_at(0,j,0,0) );
+        }
+        fprintf(fp, "\n");
+#endif
+
+#if DBG_DISPLAY
+        // debug-forward
+        Blob<Dtype>* b0 = blob_top_data_vec[0];
+        Blob<Dtype>* b1 = blob_top_data_vec[1];
+        shared_ptr<Blob<Dtype> > b2 = param[0];
+
+        cout << "Data : " << b0->num() << " * " << b0->channels() << " * " <<
+                b0->width() << " * " << b0->height()<< " = "<<
+                b0->count() << " (" << b0->num() * b0->channels() * b0->width() * b0->height() << ")" << endl;
+        cout << "Label: " << b1->num() << " * " << b1->channels() << " * " <<
+                b1->width() << " * " << b1->height()<< " = "<<
+                b1->count() << " (" << b1->num() * b1->channels() * b1->width() * b1->height() << ")" << endl;
+        cout << "Param: " << b2->num() << " * " << b2->channels() << " * " <<
+                b2->width() << " * " << b2->height()<< " = "<<
+                b2->count() << " (" << b2->num() * b2->channels() * b2->width() * b2->height() << ")" << endl;
+
+
+#endif
+
     }
 
-
+#if DBG_FILE
+    fclose(fp);
+#endif
     //prediction
     // data layer
     vector<Blob<Dtype>*> blob_bottom_testdata_vec;
