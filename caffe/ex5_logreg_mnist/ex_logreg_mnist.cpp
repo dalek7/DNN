@@ -22,7 +22,7 @@ int nIter = 30000;
 int nClass = 10; //The number of classes in MNIST dataset
 
 #define DBG_FILE 1
-#define DBG_DISPLAY 1
+#define DBG_DISPLAY 0
 
 int main()
 {
@@ -82,11 +82,14 @@ int main()
 
 
 #if DBG_FILE
-    FILE *fp = fopen("../outbig/out.txt","w");
+    int idx = 0;
+    char fn[255];
+    sprintf(fn, "../outbig/out_idx_%d.txt", idx);
+    FILE *fp = fopen(fn,"w");
 #endif
     // forward and backward iteration
-    //for(int n=0;n<nIter;n++)
-    for(int n=0;n<10;n++)
+    for(int n=0;n<nIter;n++)
+    //for(int n=0;n<10;n++)
     {
         // forward
         layer_data.Forward(blob_bottom_data_vec, blob_top_data_vec);
@@ -108,9 +111,10 @@ int main()
         param[0]->Update();
 
 #if DBG_FILE
+
         for(int j=0; j<param[0]->channels(); j++)
         {
-            fprintf(fp, "%f ",param[0]->data_at(0,j,0,0) );
+            fprintf(fp, "%f ",param[0]->data_at(idx,j,0,0) );
         }
         fprintf(fp, "\n");
 #endif
