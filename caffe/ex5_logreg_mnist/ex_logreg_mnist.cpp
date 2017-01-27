@@ -1,3 +1,5 @@
+// based on Koosy's example
+
 #include <cstring>
 #include <cstdlib>
 #include <vector>
@@ -6,6 +8,11 @@
 #include "caffe/caffe.hpp"
 #include "caffe/blob.hpp"
 #include "caffe/common.hpp"
+#include "caffe/layers/data_layer.hpp"
+#include "caffe/layers/inner_product_layer.hpp"
+#include "caffe/layers/softmax_loss_layer.hpp"
+#include "caffe/layers/argmax_layer.hpp"
+
 
 typedef double Dtype;
 using namespace caffe;
@@ -14,6 +21,7 @@ using namespace std;
 int nIter = 30000;
 int nClass = 10; //The number of classes in MNIST dataset
 
+#define DBG_FILE 1
 
 int main()
 {
@@ -31,7 +39,8 @@ int main()
     LayerParameter layer_data_param;
     DataParameter* data_param = layer_data_param.mutable_data_param();
     data_param->set_batch_size(64);
-    data_param->set_source("/home/koosy/caffe/caffe/examples/mnist/mnist_train_lmdb");
+
+    data_param->set_source("/home/seung/FL/toolkits/caffe/examples/mnist/mnist_train_lmdb");
     data_param->set_backend(caffe::DataParameter_DB_LMDB);
 
     TransformationParameter* transform_param = layer_data_param.mutable_transform_param();
@@ -106,7 +115,7 @@ int main()
     LayerParameter layer_testdata_param;
     DataParameter* testdata_param = layer_testdata_param.mutable_data_param();
     testdata_param->set_batch_size(10000);
-    testdata_param->set_source("/home/koosy/caffe/caffe/examples/mnist/mnist_test_lmdb");
+    testdata_param->set_source("/home/seung/FL/toolkits/caffe/examples/mnist/mnist_test_lmdb");
     testdata_param->set_backend(caffe::DataParameter_DB_LMDB);
 
     TransformationParameter* transform_test_param = layer_testdata_param.mutable_transform_param();
@@ -151,7 +160,8 @@ int main()
     cout<<"nIter: "<<nIter<<endl;
     cout<<"loss: "<<loss<<endl;
 
-    for (int n = 0; n<blob_testlabel->count();n++){
+    for (int n = 0; n<blob_testlabel->count();n++)
+    {
         cnt ++;
         Dtype* label_data = blob_testlabel->mutable_cpu_data();
         int truelabel = label_data[n];
