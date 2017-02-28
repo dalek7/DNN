@@ -2,6 +2,7 @@
 HelloWorld example using TensorFlow library.
 Author: Aymeric Damien
 Project: https://github.com/aymericdamien/TensorFlow-Examples/
+$ source ~/tensorflow/bin/activate
 '''
 
 #from __future__ import print_function
