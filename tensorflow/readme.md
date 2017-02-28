@@ -1,0 +1,5 @@
+
+## 
+``` 
+source ~/tensorflow/bin/activate
+```
