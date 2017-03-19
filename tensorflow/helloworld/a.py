@@ -21,3 +21,5 @@ with tf.Session() as sess:
   for _ in range(5):
     sess.run(update)
     print(sess.run(state))
+
+  print(sess.run(state))
