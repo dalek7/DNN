@@ -13,7 +13,18 @@ from __future__ import division, print_function, absolute_import
 
 import tensorflow as tf
 import numpy as np
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
+
+import os
+import errno
+
+# http://stackoverflow.com/a/5032238
+def make_sure_path_exists(path):
+    try:
+        os.makedirs(path)
+    except OSError as exception:
+        if exception.errno != errno.EEXIST:
+            raise
 
 # Import MNIST data
 from tensorflow.examples.tutorials.mnist import input_data
@@ -21,7 +32,7 @@ mnist = input_data.read_data_sets("../../dataset/MNIST_data", one_hot=True)
 
 # Parameters
 learning_rate = 0.01
-training_epochs = 20
+training_epochs = 300
 batch_size = 256
 display_step = 1
 examples_to_show = 10
@@ -107,12 +118,17 @@ with tf.Session() as sess:
     encode_decode = sess.run(
         y_pred, feed_dict={X: mnist.test.images[:examples_to_show]})
     # Compare original images with their reconstructions
-    '''
+
     f, a = plt.subplots(2, 10, figsize=(10, 2))
     for i in range(examples_to_show):
         a[0][i].imshow(np.reshape(mnist.test.images[i], (28, 28)))
         a[1][i].imshow(np.reshape(encode_decode[i], (28, 28)))
     f.show()
+    title1 = 'training_epochs = '+str(training_epochs);
+    f.suptitle(title1, fontsize=10)
     plt.draw()
+
+    make_sure_path_exists("out");
+    fn = "out/autoencoder_"+str(training_epochs)+".png";
+    plt.savefig(fn)
     plt.waitforbuttonpress()
-    '''
