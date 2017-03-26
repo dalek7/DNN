@@ -32,7 +32,7 @@ mnist = input_data.read_data_sets("../../dataset/MNIST_data", one_hot=True)
 
 # Parameters
 learning_rate = 0.01
-training_epochs = 300
+training_epochs = 2000
 batch_size = 256
 display_step = 1
 examples_to_show = 10
