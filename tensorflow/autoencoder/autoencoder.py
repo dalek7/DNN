@@ -17,6 +17,7 @@ import matplotlib.pyplot as plt
 
 import os
 import errno
+import argparse
 
 # http://stackoverflow.com/a/5032238
 def make_sure_path_exists(path):
@@ -26,13 +27,21 @@ def make_sure_path_exists(path):
         if exception.errno != errno.EEXIST:
             raise
 
+
+parser = argparse.ArgumentParser(description='Autoencoder implemented in tensorflow')
+parser.add_argument('-e', '--n_training_epochs', default=10, help='Number of training epochs',type=int)
+
+# Parse input arguments
+args = parser.parse_args()
+
 # Import MNIST data
 from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("../../dataset/MNIST_data", one_hot=True)
 
 # Parameters
 learning_rate = 0.01
-training_epochs = 2500
+#training_epochs = 20
+training_epochs = args.n_training_epochs
 batch_size = 256
 display_step = 1
 examples_to_show = 10
