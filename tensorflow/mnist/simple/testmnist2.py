@@ -43,6 +43,8 @@ for iter in range(10000):
       #print W1.size / 10
       for i in range(W1.size/10): # inspect w for only '0'
         f.write("\t".join(map(lambda x: str(x), W1[i])))
+        f.write('\n')
+
       f.close()
 
 ''' This takes too much time !
