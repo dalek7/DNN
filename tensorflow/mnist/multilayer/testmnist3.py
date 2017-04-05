@@ -80,6 +80,7 @@ train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)
 correct_prediction = tf.equal(tf.argmax(y_conv,1), tf.argmax(y_,1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
+saver = tf.train.Saver()
 sess.run(tf.global_variables_initializer())
 
 for i in range(1000): # 20000
@@ -90,8 +91,13 @@ for i in range(1000): # 20000
     print("step %d, training accuracy %g"%(i, train_accuracy))
   train_step.run(feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.5})
 
+save_path = saver.save(sess, "model2.ckpt")
+print ("Model saved in file: ", save_path)
+
 print("test accuracy %g"% sess.run(
         accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0}))
+
+sess.close()
 
 # Ran out of memory trying to allocate 957.03MiB.  See logs for memory state !!
 # TODO : upgrade GPU !
