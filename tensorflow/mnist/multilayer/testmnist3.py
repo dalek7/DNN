@@ -5,6 +5,7 @@ mnist = input_data.read_data_sets('../MNIST_data', one_hot=True)
 
 import tensorflow as tf
 sess = tf.InteractiveSession()
+#sess = tf.Session()
 
 def weight_variable(shape):
   initial = tf.truncated_normal(shape, stddev=0.1)
@@ -78,6 +79,7 @@ cross_entropy = tf.reduce_mean(
 train_step = tf.train.AdamOptimizer(1e-4).minimize(cross_entropy)
 correct_prediction = tf.equal(tf.argmax(y_conv,1), tf.argmax(y_,1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+
 sess.run(tf.global_variables_initializer())
 
 for i in range(1000): # 20000
@@ -88,5 +90,9 @@ for i in range(1000): # 20000
     print("step %d, training accuracy %g"%(i, train_accuracy))
   train_step.run(feed_dict={x: batch[0], y_: batch[1], keep_prob: 0.5})
 
-print("test accuracy %g"%accuracy.eval(feed_dict={
-    x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0}))
+print("test accuracy %g"% sess.run(
+        accuracy, feed_dict={x: mnist.test.images, y_: mnist.test.labels, keep_prob: 1.0}))
+
+# Ran out of memory trying to allocate 957.03MiB.  See logs for memory state !!
+# TODO : upgrade GPU !
+
