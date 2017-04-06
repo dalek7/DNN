@@ -77,7 +77,7 @@ print ("SAVER READY")
 
 # TRAIN
 TRAIN_FLAG = 1
-epochs     = 100#50
+epochs     = 50#50
 batch_size = 100
 disp_step  = 10
 
@@ -107,7 +107,8 @@ if TRAIN_FLAG:
 
             testvec  = testimg[randidx, :]
             noisyvec = testvec + 0.3*np.random.randn(1, 784)
-            outvec   = sess.run(recon, feed_dict={x: testvec, dropout_keep_prob: 1.})
+            #outvec   = sess.run(recon, feed_dict={x: testvec, dropout_keep_prob: 1.})
+            outvec   = sess.run(recon, feed_dict={x: noisyvec, dropout_keep_prob: 1.})
             outimg   = np.reshape(outvec, (28, 28))
 			
             # Plot
@@ -115,10 +116,12 @@ if TRAIN_FLAG:
             plt.title("[" + str(epoch) + "] Original Image")
             plt.colorbar()
             plt.show()
+			
             plt.matshow(np.reshape(noisyvec, (28, 28)), cmap=plt.get_cmap('gray'))
             plt.title("[" + str(epoch) + "] Input Image")
             plt.colorbar()
             plt.show()
+			
             plt.matshow(outimg, cmap=plt.get_cmap('gray'))
             plt.title("[" + str(epoch) + "] Reconstructed Image")
             plt.colorbar()
