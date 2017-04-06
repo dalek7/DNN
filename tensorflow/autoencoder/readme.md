@@ -1,6 +1,7 @@
 # Auto encoder
 ## Denoising Autoencoder
 * Learned filters
+
 ![Figure1](https://raw.githubusercontent.com/dalek7/DNN/master/tensorflow/autoencoder/out/filters.png)
 
 # References
