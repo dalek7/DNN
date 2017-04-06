@@ -1,6 +1,6 @@
 # Auto encoder
 ## Denoising Autoencoder
-* Learned filters
+* Learned filters : visualization of weights["h1"]
 
 ![Figure1](https://raw.githubusercontent.com/dalek7/DNN/master/tensorflow/autoencoder/out/filters.png)
 
