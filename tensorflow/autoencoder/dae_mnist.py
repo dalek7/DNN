@@ -259,6 +259,16 @@ image = Image.fromarray(tile_raster_images(
         X = w1.T,
         img_shape=(28*1, 28*1), tile_shape=(10, 10),
         tile_spacing=(1, 1)))
-image.save("out/filters.png");
+image.save("filters_h1.png");
 image.show()
-print('Visualized filter')
+
+w2 = sess.run(weights["h2"])
+
+image2 = Image.fromarray(tile_raster_images(
+        X = w2.T,
+        img_shape=(16, 16), tile_shape=(10, 10),
+        tile_spacing=(1, 1)))
+image2.save("filters_h2.png");
+image2.show()
+
+print('Visualized filters')
