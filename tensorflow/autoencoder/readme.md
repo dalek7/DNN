@@ -2,7 +2,7 @@
 ## Denoising Autoencoder
 * Explanation
 
-![Figure1](https://raw.githubusercontent.com/dalek7/DNN/master/tensorflow/autoencoder/dae.png)
+<img src="https://raw.githubusercontent.com/dalek7/DNN/master/tensorflow/autoencoder/dae.png" width="640">
 from https://www.slideshare.net/ssuser77ee21/generative-adversarial-networks-70896091
 
 * Learned filters : visualization of weights["h1"]
