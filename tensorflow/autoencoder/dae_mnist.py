@@ -77,7 +77,7 @@ saver   = tf.train.Saver(max_to_keep=1)
 print ("SAVER READY")
 
 # TRAIN
-TRAIN_FLAG = 1
+TRAIN_FLAG = 0
 epochs     = 1000#50
 batch_size = 100
 disp_step  = 10
