@@ -65,8 +65,10 @@ print ("NETOWRK READY")
 
 # COST
 cost = tf.reduce_mean(tf.pow(recon-y, 2))
+
 # OPTIMIZER
 optm = tf.train.AdamOptimizer(0.01).minimize(cost)
+
 # INITIALIZER
 #init = tf.initialize_all_variables()
 init = tf.global_variables_initializer()
@@ -77,8 +79,8 @@ saver   = tf.train.Saver(max_to_keep=1)
 print ("SAVER READY")
 
 # TRAIN
-TRAIN_FLAG = 0
-epochs     = 1000#50
+TRAIN_FLAG = 1
+epochs     = 50#50
 batch_size = 100
 disp_step  = 10
 
