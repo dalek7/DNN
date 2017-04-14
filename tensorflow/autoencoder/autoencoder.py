@@ -36,7 +36,7 @@ args = parser.parse_args()
 
 # Import MNIST data
 from tensorflow.examples.tutorials.mnist import input_data
-mnist = input_data.read_data_sets("../../dataset/MNIST_data", one_hot=True)
+mnist = input_data.read_data_sets("/tmp/tensorflow/mnist/input_data/", one_hot=True)
 
 # Parameters
 learning_rate = 0.01
@@ -73,7 +73,7 @@ def encoder(x):
     # Encoder Hidden layer with sigmoid activation #1
     layer_1 = tf.nn.sigmoid(tf.add(tf.matmul(x, weights['encoder_h1']),
                                    biases['encoder_b1']))
-    # Decoder Hidden layer with sigmoid activation #2
+    # Encoder Hidden layer with sigmoid activation #2
     layer_2 = tf.nn.sigmoid(tf.add(tf.matmul(layer_1, weights['encoder_h2']),
                                    biases['encoder_b2']))
     return layer_2
@@ -81,9 +81,10 @@ def encoder(x):
 
 # Building the decoder
 def decoder(x):
-    # Encoder Hidden layer with sigmoid activation #1
+    # Decoder Hidden layer with sigmoid activation #1
     layer_1 = tf.nn.sigmoid(tf.add(tf.matmul(x, weights['decoder_h1']),
                                    biases['decoder_b1']))
+								   
     # Decoder Hidden layer with sigmoid activation #2
     layer_2 = tf.nn.sigmoid(tf.add(tf.matmul(layer_1, weights['decoder_h2']),
                                    biases['decoder_b2']))
