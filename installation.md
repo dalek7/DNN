@@ -12,6 +12,7 @@ jupyter notebook
 
 ## Troubleshoot
 * Trouble with TensorFlow in Jupyter Notebook
+
 http://stackoverflow.com/a/39355763
 
 * Version
