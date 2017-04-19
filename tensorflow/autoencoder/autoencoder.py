@@ -84,7 +84,7 @@ def decoder(x):
     # Decoder Hidden layer with sigmoid activation #1
     layer_1 = tf.nn.sigmoid(tf.add(tf.matmul(x, weights['decoder_h1']),
                                    biases['decoder_b1']))
-								   
+
     # Decoder Hidden layer with sigmoid activation #2
     layer_2 = tf.nn.sigmoid(tf.add(tf.matmul(layer_1, weights['decoder_h2']),
                                    biases['decoder_b2']))
@@ -106,6 +106,11 @@ optimizer = tf.train.RMSPropOptimizer(learning_rate).minimize(cost)
 # Initializing the variables
 init = tf.global_variables_initializer()
 
+savedir = "nets/"
+make_sure_path_exists(savedir)
+
+saver   = tf.train.Saver(max_to_keep=1)
+
 # Launch the graph
 with tf.Session() as sess:
     sess.run(init)
@@ -123,13 +128,15 @@ with tf.Session() as sess:
                   "cost=", "{:.9f}".format(c))
 
     print("Optimization Finished!")
-
+    # SAVE
+    saver.save(sess, savedir + 'dae.ckpt', global_step=epoch)
+    
     # Applying encode and decode over test set
     encode_decode = sess.run(
         y_pred, feed_dict={X: mnist.test.images[:examples_to_show]})
     # Compare original images with their reconstructions
 
-    f, a = plt.subplots(2, 10, figsize=(10, 2))
+    f, a = plt.subplots(2, examples_to_show, figsize=(examples_to_show, 2))
     for i in range(examples_to_show):
         a[0][i].imshow(np.reshape(mnist.test.images[i], (28, 28)))
         a[1][i].imshow(np.reshape(encode_decode[i], (28, 28)))
