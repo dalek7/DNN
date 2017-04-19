@@ -27,7 +27,6 @@ def make_sure_path_exists(path):
         if exception.errno != errno.EEXIST:
             raise
 
-
 parser = argparse.ArgumentParser(description='Autoencoder implemented in tensorflow')
 parser.add_argument('-e', '--n_training_epochs', default=10, help='Number of training epochs',type=int)
 
@@ -111,6 +110,7 @@ make_sure_path_exists(savedir)
 
 saver   = tf.train.Saver(max_to_keep=1)
 
+
 # Launch the graph
 with tf.Session() as sess:
     sess.run(init)
@@ -130,7 +130,8 @@ with tf.Session() as sess:
     print("Optimization Finished!")
     # SAVE
     saver.save(sess, savedir + 'dae.ckpt', global_step=epoch)
-    
+
+
     # Applying encode and decode over test set
     encode_decode = sess.run(
         y_pred, feed_dict={X: mnist.test.images[:examples_to_show]})
