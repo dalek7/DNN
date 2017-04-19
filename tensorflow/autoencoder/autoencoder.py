@@ -8,6 +8,9 @@ References:
     86(11):2278-2324, November 1998.
 Links:
     [MNIST Dataset] http://yann.lecun.com/exdb/mnist/
+
+Refereces used for Tensorboard:
+    http://qiita.com/mokemokechicken/items/8216aaad36709b6f0b5c
 """
 from __future__ import division, print_function, absolute_import
 
@@ -102,6 +105,9 @@ y_true = X
 cost = tf.reduce_mean(tf.pow(y_true - y_pred, 2))
 optimizer = tf.train.RMSPropOptimizer(learning_rate).minimize(cost)
 
+# tensorboard
+cost_summ = tf.summary.scalar("cost", cost)
+
 # Initializing the variables
 init = tf.global_variables_initializer()
 
@@ -110,10 +116,13 @@ make_sure_path_exists(savedir)
 
 saver   = tf.train.Saver(max_to_keep=1)
 
-
+merged = tf.summary.merge_all()
+#summary_op = tf.summary.merge_all()
 # Launch the graph
 with tf.Session() as sess:
     sess.run(init)
+    writer = tf.summary.FileWriter("/tmp/tensorboard/autoencoder1", sess.graph)
+
     total_batch = int(mnist.train.num_examples/batch_size)
     # Training cycle
     for epoch in range(training_epochs):
@@ -122,6 +131,11 @@ with tf.Session() as sess:
             batch_xs, batch_ys = mnist.train.next_batch(batch_size)
             # Run optimization op (backprop) and cost op (to get loss value)
             _, c = sess.run([optimizer, cost], feed_dict={X: batch_xs})
+
+        # Summary
+        summary_str = sess.run(merged, feed_dict={X: batch_xs})
+        writer.add_summary(summary_str, epoch)
+
         # Display logs per epoch step
         if epoch % display_step == 0:
             print("Epoch:", '%04d' % (epoch+1),
@@ -142,6 +156,7 @@ with tf.Session() as sess:
         a[0][i].imshow(np.reshape(mnist.test.images[i], (28, 28)))
         a[1][i].imshow(np.reshape(encode_decode[i], (28, 28)))
     f.show()
+
     title1 = 'training_epochs = '+str(training_epochs);
     f.suptitle(title1, fontsize=10)
     plt.draw()
