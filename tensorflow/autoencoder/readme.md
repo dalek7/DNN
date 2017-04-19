@@ -1,9 +1,19 @@
-# References
+
+
+## Examples
+
+ ![Figure1](https://raw.githubusercontent.com/dalek7/DNN/master/tensorflow/autoencoder/autoencoder_cost.png)
+  
+ ![Figure2](https://raw.githubusercontent.com/dalek7/DNN/master/tensorflow/autoencoder/out/autoencoder_5000.png)
+
+
+
+
 ## Tutorial
 * http://ufldl.stanford.edu/wiki/index.php/Autoencoders_and_Sparsity
-### Denoising Autoencoder
-* https://github.com/sjchoi86/tensorflow-101/blob/master/notebooks/dae_mnist_dropout.ipynb
 
-# QnA
+
+
+
 ## Sparsity
 * http://stats.stackexchange.com/a/151011
