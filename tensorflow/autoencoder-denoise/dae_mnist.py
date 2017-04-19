@@ -104,7 +104,7 @@ if TRAIN_FLAG:
         # DISPLAY
         #if epoch % disp_step == 0:
         if epoch == epochs-1:
-		
+
             print ("Epoch %02d/%02d average cost: %.6f"
                    % (epoch, epochs, total_cost/num_batch))
             # PLOT
@@ -116,25 +116,25 @@ if TRAIN_FLAG:
             #outvec   = sess.run(recon, feed_dict={x: testvec, dropout_keep_prob: 1.})
             outvec   = sess.run(recon, feed_dict={x: noisyvec, dropout_keep_prob: 1.})
             outimg   = np.reshape(outvec, (28, 28))
-			
+
             # Plot
             plt.matshow(np.reshape(testvec, (28, 28)), cmap=plt.get_cmap('gray'))
             plt.title("[" + str(epoch) + "] Original Image")
             plt.colorbar()
             plt.show()
-			
+
             plt.matshow(np.reshape(noisyvec, (28, 28)), cmap=plt.get_cmap('gray'))
             plt.title("[" + str(epoch) + "] Input Image")
             plt.colorbar()
             plt.show()
-			
+
             plt.matshow(outimg, cmap=plt.get_cmap('gray'))
             plt.title("[" + str(epoch) + "] Reconstructed Image")
             plt.colorbar()
             plt.show()
         # SAVE
         saver.save(sess, savedir + 'dae.ckpt', global_step=epoch)
-		
+
     print ("OPTIMIZATION FINISHED")
 else:
     print ("RESTORE")
@@ -148,13 +148,13 @@ orgvec    = testimg[randidx, :]
 testvec   = testimg[randidx, :]
 label     = np.argmax(testlabel[randidx, :], 1)
 
-print ("label is %d" % (label)) 
+print ("label is %d" % (label))
 # Noise type
 ntype = 2 # 1: Gaussian Noise, 2: Salt and Pepper Noise
 if ntype is 1:
     print ("Gaussian Noise")
     noisyvec = testvec + 0.1*np.random.randn(1, 784)
-else:    
+else:
     print ("Salt and Pepper Noise")
     noisyvec = testvec
     rate     = 0.20
@@ -164,7 +164,7 @@ else:
 outvec   = sess.run(recon, feed_dict={x: noisyvec, dropout_keep_prob: 1})
 outimg   = np.reshape(outvec, (28, 28))
 
-# Plot 
+# Plot
 plt.matshow(np.reshape(orgvec, (28, 28)), cmap=plt.get_cmap('gray'))
 plt.title("Original Image")
 plt.colorbar()
@@ -180,7 +180,7 @@ plt.show()
 
 
 
-# Visualize Filter 
+# Visualize Filter
 from PIL import Image
 
 def scale_to_unit_interval(ndar, eps=1e-8):
