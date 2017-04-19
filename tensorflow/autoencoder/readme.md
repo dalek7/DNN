@@ -1,13 +1,3 @@
-# Auto encoder
-## Denoising Autoencoder
-
-<img src="https://raw.githubusercontent.com/dalek7/DNN/master/tensorflow/autoencoder/dae.png" width="500">
-from https://www.slideshare.net/ssuser77ee21/generative-adversarial-networks-70896091
-
-* Learned filters : visualization of weights["h1"]
-
-![Figure2](https://raw.githubusercontent.com/dalek7/DNN/master/tensorflow/autoencoder/out/filters.png)
-
 # References
 ## Tutorial
 * http://ufldl.stanford.edu/wiki/index.php/Autoencoders_and_Sparsity
