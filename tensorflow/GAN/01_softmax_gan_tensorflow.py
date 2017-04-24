@@ -13,7 +13,7 @@ h_dim = 128
 lr = 1e-3
 d_steps = 3
 
-mnist = input_data.read_data_sets('/tmp/tensorflow//MNIST/data', one_hot=True)
+mnist = input_data.read_data_sets('/tmp/tensorflow/MNIST/data', one_hot=True)
 
 
 def plot(samples):
@@ -121,7 +121,7 @@ for it in range(1000000):
         samples = sess.run(G_sample, feed_dict={z: sample_z(16, z_dim)})
 
         fig = plot(samples)
-        plt.savefig('out/{}.png'
+        plt.savefig('out-01-softmax-gan/{}.png'
                     .format(str(i).zfill(3)), bbox_inches='tight')
         i += 1
         plt.close(fig)
