@@ -97,12 +97,12 @@ G_solver = (tf.train.AdamOptimizer(learning_rate=lr)
 sess = tf.Session()
 sess.run(tf.global_variables_initializer())
 
-if not os.path.exists('out/'):
-    os.makedirs('out/')
+if not os.path.exists('out-01-softmax-gan/'):
+    os.makedirs('out-01-softmax-gan/')
 
 i = 0
 
-for it in range(1000000):
+for it in range(5000000):
     X_mb, _ = mnist.train.next_batch(mb_size)
     z_mb = sample_z(mb_size, z_dim)
 
