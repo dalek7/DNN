@@ -19,8 +19,8 @@ for k=1:size({l.name}, 2)
        AAn = zeros(size(A, 1),1);
        AAp = zeros(size(A, 1),1);
 
-       AAp(idxp) = Ai(idxp); 
-       AAn(idxn) = Ai(idxn); 
+       AAp(idxp) = Ai(idxp);
+       AAn(idxn) = Ai(idxn);
 
        AAp = reshape(AAp, 28, 28);
        AAn = reshape(AAn, 28, 28);
@@ -47,7 +47,7 @@ for k=1:size({l.name}, 2)
     underlineLocations = find(fn == '_');
     dotLocations = find(fn == '.');
     nIt = str2double(fn(underlineLocations(1)+1:dotLocations(1)));
-    
+
     ttl1 = sprintf('Iteration #%d', nIt);
     annotation(f,'textbox',...
         [0.45 0.92 0.15 0.05],...

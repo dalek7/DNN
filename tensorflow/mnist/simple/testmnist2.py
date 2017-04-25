@@ -1,7 +1,11 @@
 # based on https://www.tensorflow.org/get_started/mnist/beginners
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
-mnist = input_data.read_data_sets("../MNIST_data/", one_hot=True)
+mnist = input_data.read_data_sets("/tmp/tensorflow/MNIST/data/", one_hot=True)
+
+import os
+if not os.path.exists('out/'):
+    os.makedirs('out/')
 
 # Load data
 X_train = mnist.train.images
@@ -32,11 +36,11 @@ train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
 sess = tf.InteractiveSession()
 tf.global_variables_initializer().run()
 
-for iter in range(10000):
+for iter in range(10000):#10000
   batch_xs, batch_ys = mnist.train.next_batch(100)
   sess.run(train_step, feed_dict={x: batch_xs, y_: batch_ys})
   #print('iter %d' % iter)
-  if iter % 100 == 0:
+  if iter % 10 == 0:
       print('out/w_%s.txt' % iter)
       f = open('out/w_%s.txt' % iter, 'w')
       W1 = sess.run(W)
