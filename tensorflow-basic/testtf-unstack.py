@@ -43,7 +43,7 @@ with tf.Session() as sess:
     print("x_in.shape (reshaped): ", np.array(x_in2).shape)
 
     # 지정한 축을 기준으로 다시 구성
-    # 따라서 아래 두개는 같은 값을 가질 수 밖에
+    # 따라서 아래 두개의 형태는 같은 값을 가질 수 밖에
     x2_ = sess.run(x2, feed_dict={x: x_in2})
     x3_ = sess.run(x3, feed_dict={x: x_in2})
 
