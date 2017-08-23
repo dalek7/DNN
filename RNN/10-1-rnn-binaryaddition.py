@@ -11,6 +11,12 @@ def sigmoid(x):
     output = 1/(1+np.exp(-x))
     return output
 
+# binary_dim = 8
+# input_dim = 2
+# hidden_dim = 16
+# output_dim = 1
+
+
 synapse_0 = [[ -3.59519530e-01,   2.33958993e+00,  -3.20338283e-01,
          -1.23380148e+00,   8.23329522e-02,  -1.45748081e-01,
          -6.45250995e+00,   4.49331950e+00,   3.26692732e+00,
@@ -156,6 +162,7 @@ for position in range(binary_dim):
 
     # layer_1 = sigmoid(np.dot(X, synapse_0) # no carry bit
     layer_1 = sigmoid(np.dot(X, synapse_0) + np.dot(layer_1_values[-1], synapse_h))
+
     # output layer (new binary representation)
     layer_2 = sigmoid(np.dot(layer_1, synapse_1))
 
