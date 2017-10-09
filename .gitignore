@@ -1,7 +1,21 @@
 outbig/
 build/
-.DS_Store
-._.DS_Store
 data/
 MNIST_data/
+
+*.pyc
+
+.idea/
+.ipynb_checkpoints
+out*
+
+# OS-dependent
+Thumbs.db
+.DS_Store
+._.DS_Store
+._*
+
+# pretrained network
+vgg16_weights.npz
+*.npz
 
