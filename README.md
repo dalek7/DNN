@@ -1,4 +1,2 @@
-# DNN
-DNN
-
-- NN Basic
+# Introduction
+* 각종 테스트들
