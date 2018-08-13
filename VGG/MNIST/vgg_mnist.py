@@ -102,7 +102,6 @@ print ('accuracy: ', sess.run(accuracy, feed_dict={images: vbatch_img, true_out:
 
 # In[ ]:
 
-
 print(vgg.conv1_1)
 print(vgg.conv1_2)
 print(vgg.pool1)
