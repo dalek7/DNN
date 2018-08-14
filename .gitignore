@@ -20,4 +20,4 @@ vgg16_weights.npz
 *.npz
 
 pretrained/
-
+weight/
