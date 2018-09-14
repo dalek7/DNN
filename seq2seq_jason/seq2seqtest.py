@@ -96,9 +96,11 @@ def one_hot_decode(encoded_seq):
 n_features = 50 + 1
 n_steps_in = 6
 n_steps_out = 3
+
 # define model
 train, infenc, infdec = define_models(n_features, n_features, 128)
 train.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['acc'])
+
 # generate training dataset
 X1, X2, y = get_dataset(n_steps_in, n_steps_out, n_features, 100000)
 print(X1.shape, X2.shape, y.shape)
