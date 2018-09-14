@@ -7,7 +7,7 @@ from keras.models import Model
 from keras.layers import Input
 from keras.layers import LSTM
 from keras.layers import Dense
-
+import numpy as np
 # generate a sequence of random integers
 def generate_sequence(length, n_unique):
     return [randint(1, n_unique - 1) for _ in range(length)]
@@ -19,14 +19,16 @@ def get_dataset(n_in, n_out, cardinality, n_samples):
         # generate source sequence
         source = generate_sequence(n_in, cardinality)
         # define padded target sequence
+
         target = source[:n_out]
         target.reverse()
+
         # create padded input target sequence
         target_in = [0] + target[:-1]
         # encode
-        src_encoded = to_categorical([source], num_classes=cardinality)
-        tar_encoded = to_categorical([target], num_classes=cardinality)
-        tar2_encoded = to_categorical([target_in], num_classes=cardinality)
+        src_encoded = to_categorical([source], num_classes=cardinality)[0]
+        tar_encoded = to_categorical([target], num_classes=cardinality)[0]
+        tar2_encoded = to_categorical([target_in], num_classes=cardinality)[0]
         # store
         X1.append(src_encoded)
         X2.append(tar2_encoded)
@@ -41,13 +43,16 @@ def define_models(n_input, n_output, n_units):
     encoder = LSTM(n_units, return_state=True)
     encoder_outputs, state_h, state_c = encoder(encoder_inputs)
     encoder_states = [state_h, state_c]
+
     # define training decoder
     decoder_inputs = Input(shape=(None, n_output))
     decoder_lstm = LSTM(n_units, return_sequences=True, return_state=True)
     decoder_outputs, _, _ = decoder_lstm(decoder_inputs, initial_state=encoder_states)
     decoder_dense = Dense(n_output, activation='softmax')
     decoder_outputs = decoder_dense(decoder_outputs)
+
     model = Model([encoder_inputs, decoder_inputs], decoder_outputs)
+
     # define inference encoder
     encoder_model = Model(encoder_inputs, encoder_states)
     # define inference decoder
